@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en" class="h-100">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Me</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  </head>
+  <body class="h-100 bg-dark">
+    <div class="container h-100">
+      <div class="row align-items-center h-100">
+        <div class="mx-auto">
+          <div class="card h-100 justify-content-center" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title" id="name"></h5>
+              <p class="card-text" id="about"></p>
+              <a href="#" class="btn btn-info" id="homepage">Homepage</a>
+              <button class="btn btn-warning" onclick="update()">Update</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      window.onload = () => {
+        fetch("http://127.0.0.1:8000/me", {credentials: "include"})
+          .then(response => response.json())
+          .then(me => {
+            let name = document.getElementById("name");
+            let about = document.getElementById("about");
+            let homepage = document.getElementById("homepage");
+
+            name.innerText = me.name;
+            about.innerText = me.about;
+            homepage.href = me.homepage;
+          })
+          .catch(error => {
+            console.log(error);
+
+            let name = document.getElementById("name");
+            let about = document.getElementById("about");
+            let homepage = document.getElementById("homepage");
+
+            name.innerText = "unknown";
+            about.innerText = "unknown";
+            homepage.href = "unknown";
+          });
+      }
+      
+      function update() {
+        fetch("http://127.0.0.1:8000/me", {
+          method: "PUT",
+        })
+          .then(response => response.json())
+          .then(me => {
+          let name = document.getElementById("name");
+          let about = document.getElementById("about");
+          let homepage = document.getElementById("homepage");
+
+          name.innerText = me.name;
+          about.innerText = me.about;
+          homepage.href = me.homepage;
+        }).catch(error => {
+          console.log(error);
+        });
+      }
+    </script>
+  </body>
+</html>
