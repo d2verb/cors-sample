@@ -3,6 +3,8 @@ from fastapi import FastAPI, Response, Header
 
 app = FastAPI()
 
+name_list = ["john", "joshua"]
+
 profile = {
     "name": "john",
     "about": "I want to be a shellfish.",
