@@ -31,4 +31,4 @@ def put(response: Response):
 @app.options("/me", status_code=204)
 def options(response: Response):
     response.headers["Access-Control-Allow-Origin"] = "http://127.0.0.1:8001"
-    response.headers["Access-Control-Allow-Methods"] = "PUT"
+    response.headers["Access-Control-Allow-Methods"] = "GET,PUT,OPTIONS"
